@@ -18,6 +18,9 @@ use App\Orchid\Screens\User\UserProfileScreen;
 use Illuminate\Support\Facades\Route;
 use Tabuna\Breadcrumbs\Trail;
 
+use App\Orchid\Screens\DepartmentEditScreen;
+use App\Orchid\Screens\DepartmentListScreen;
+
 /*
 |--------------------------------------------------------------------------
 | Dashboard Routes
@@ -112,4 +115,12 @@ Route::screen('example-editors', ExampleTextEditorsScreen::class)->name('platfor
 Route::screen('example-cards', ExampleCardsScreen::class)->name('platform.example.cards');
 Route::screen('example-advanced', ExampleFieldsAdvancedScreen::class)->name('platform.example.advanced');
 
+
+
+Route::screen('department/{department?}', DepartmentEditScreen::class)
+    ->name('platform.department.edit');
+
+Route::screen('departments', DepartmentListScreen::class)
+    ->name('platform.department.list');
+    
 //Route::screen('idea', 'Idea::class','platform.screens.idea');

@@ -2,7 +2,12 @@
 
 namespace App\Orchid\Screens;
 
+use App\Models\Department;
+
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
+
+use App\Orchid\Layouts\DepartmentListLayout;
 
 class DepartmentListScreen extends Screen
 {
@@ -11,14 +16,14 @@ class DepartmentListScreen extends Screen
      *
      * @var string
      */
-    public $name = 'DepartmentListScreen';
+    public $name = 'Список кафедр';
 
     /**
      * Display header description.
      *
      * @var string|null
      */
-    public $description = 'DepartmentListScreen';
+    public $description = 'Department List Screen';
 
     /**
      * Query data.
@@ -27,7 +32,9 @@ class DepartmentListScreen extends Screen
      */
     public function query(): array
     {
-        return [];
+        return [
+            'departments' => Department::paginate(),
+        ];
     }
 
     /**
@@ -37,7 +44,11 @@ class DepartmentListScreen extends Screen
      */
     public function commandBar(): array
     {
-        return [];
+        return [
+            Link::make('Create new')
+                ->icon('pencil')
+                ->route('platform.department.edit'),
+        ];
     }
 
     /**
@@ -47,6 +58,8 @@ class DepartmentListScreen extends Screen
      */
     public function layout(): array
     {
-        return [];
+        return [
+            DepartmentListLayout::class
+        ];
     }
 }
