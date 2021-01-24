@@ -63,4 +63,12 @@ class User extends Authenticatable
         'updated_at',
         'created_at',
     ];
+
+    public function scopeIsTeacher($query)
+    {
+        // return $query->
+        return ($query->whereHas('roles', function($query){
+            return $query->where('slug', 'teacher');
+        })->get());
+    }
 }

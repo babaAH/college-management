@@ -21,6 +21,10 @@ use Tabuna\Breadcrumbs\Trail;
 use App\Orchid\Screens\DepartmentEditScreen;
 use App\Orchid\Screens\DepartmentListScreen;
 
+use App\Orchid\Screens\StudentGroup\StudentGroupEditScreen;
+use App\Orchid\Screens\StudentGroup\StudentGroupListScreen;
+
+
 /*
 |--------------------------------------------------------------------------
 | Dashboard Routes
@@ -122,5 +126,11 @@ Route::screen('department/{department?}', DepartmentEditScreen::class)
 
 Route::screen('departments', DepartmentListScreen::class)
     ->name('platform.department.list');
+
     
+Route::screen('studentgroup/{studentgroup?}', StudentGroupEditScreen::class)
+    ->name('platform.studentgroup.edit');
+    
+Route::screen('studentgroups', StudentGroupListScreen::class)
+    ->name('platform.studentgroup.list');
 //Route::screen('idea', 'Idea::class','platform.screens.idea');

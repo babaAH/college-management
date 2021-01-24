@@ -75,6 +75,7 @@ class DepartmentEditScreen extends Screen
      */
     public function layout(): array
     {
+        // dd(\App\Models\User::isTeacher());
         return [
             Layout::rows([
                 Input::make('department.title')
@@ -86,6 +87,7 @@ class DepartmentEditScreen extends Screen
                     
                 Relation::make('department.director_id')
                     ->fromModel(User::class, 'name')
+                    ->applyScope('isTeacher')
                     ->title('director'),
                 // Input::make('department.title')
                 //     ->title('Title'),
