@@ -25,6 +25,29 @@ class PlatformProvider extends OrchidServiceProvider
     public function registerMainMenu(): array
     {
         return [
+            ItemMenu::label('Студенческие группы')
+                ->icon('monitor')
+                ->route('platform.studentgroup.list')
+                ->title('Университет'),
+                // ->badge(function () {
+                //     return 6;
+                // }),
+                
+            ItemMenu::label('Кафедры')
+                ->icon('monitor')
+                ->route('platform.department.list'),
+            // ->badge(function () {
+            //     return 6;
+            // }),
+
+            ItemMenu::label('Учебные курсы')
+                ->icon('monitor')
+                ->route('platform.course.list')
+                ->title('Университет'),
+            // ->badge(function () {
+            //     return 6;
+            // }),
+
             ItemMenu::label('Example screen')
                 ->icon('monitor')
                 ->route('platform.example')

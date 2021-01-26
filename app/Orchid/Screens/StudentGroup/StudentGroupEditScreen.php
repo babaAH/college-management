@@ -4,6 +4,7 @@ namespace App\Orchid\Screens\StudentGroup;
 
 use App\Models\StudentGroup;
 use App\Models\Department;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 use Orchid\Screen\Screen;
@@ -79,6 +80,11 @@ class StudentGroupEditScreen extends Screen
                 Relation::make("studentgroup.department_id")
                     ->fromModel(Department::class, "title")
                     ->title("Кафедра")
+                    ->required(),
+                    
+                Relation::make("studentgroup.students")
+                    ->fromModel(User::class, "title")
+                    ->title("Студенты")
                     ->required(),
             ])
         ];

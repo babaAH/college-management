@@ -64,11 +64,24 @@ class User extends Authenticatable
         'created_at',
     ];
 
+    public function projects()
+    {
+        return $this->hasMany(\App\Models\Project::class);
+    }
+
     public function scopeIsTeacher($query)
     {
         // return $query->
         return ($query->whereHas('roles', function($query){
             return $query->where('slug', 'teacher');
+        })->get());
+    }
+
+    public function scopeIsStudent($query)
+    {
+        // return $query->
+        return ($query->whereHas('roles', function($query){
+            return $query->where('slug', 'student');
         })->get());
     }
 }
