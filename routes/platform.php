@@ -23,9 +23,13 @@ use App\Orchid\Screens\DepartmentListScreen;
 
 use App\Orchid\Screens\StudentGroup\StudentGroupEditScreen;
 use App\Orchid\Screens\StudentGroup\StudentGroupListScreen;
+use App\Orchid\Screens\StudentGroup\StudentGroupStudentsListScreen;
 
 use  App\Orchid\Screens\Courses\CourseEditScreen;
 use  App\Orchid\Screens\Courses\CourseListScreen;
+
+use  App\Orchid\Screens\Projects\ProjectsEditScreen;
+use  App\Orchid\Screens\Projects\ProjectsListScreen;
 
 
 /*
@@ -133,14 +137,23 @@ Route::screen('departments', DepartmentListScreen::class)
     
 Route::screen('studentgroup/{studentgroup?}', StudentGroupEditScreen::class)
     ->name('platform.studentgroup.edit');
-    
+
+Route::screen('studentgroup/students/{studentgroup}', StudentGroupListScreen::class)
+    ->name('platform.studentgroup.students.list');    
+
 Route::screen('studentgroups', StudentGroupListScreen::class)
     ->name('platform.studentgroup.list');
 
-Route::screen("course/{course?}", CourseEditScreen::class)
+    Route::screen("course/{course?}", CourseEditScreen::class)
     ->name('platform.course.edit');
 
 Route::screen("courses", CourseListScreen::class)
     ->name('platform.course.list');
 
+Route::screen("project/{project?}", ProjectsEditScreen::class)
+    ->name('platform.project.edit');
+
+Route::screen("projects", ProjectsListScreen::class)
+    ->name('platform.project.list');
+    
 //Route::screen('idea', 'Idea::class','platform.screens.idea');

@@ -69,6 +69,16 @@ class User extends Authenticatable
         return $this->hasMany(\App\Models\Project::class);
     }
 
+    public function courseScores()
+    {
+        return $this->belongsToMany(
+            \App\Models\Project::class,
+            "studentgroup_exam_scores",
+            "student_id",
+            "project_id"
+        );
+    }
+
     public function scopeIsTeacher($query)
     {
         // return $query->

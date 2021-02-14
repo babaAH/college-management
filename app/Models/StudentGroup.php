@@ -13,4 +13,9 @@ class StudentGroup extends Model
         'article',
         'department_id'
     ];
+
+    public function students()
+    {
+        return $this->belongsToMany(\App\Models\User::class, 'user_studentgroup', 'studentgroup_id', 'user_id');
+    }
 }

@@ -13,6 +13,7 @@ class CreateDepartmentsTable extends Migration
      */
     public function up()
     {
+        // таблица кафедр
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('title');

@@ -2,16 +2,20 @@
 
 namespace App\Orchid\Screens\StudentGroup;
 
-use App\Models\StudentGroup;
-use App\Models\Department;
 use App\Models\User;
-
-use Illuminate\Http\Request;
 use Orchid\Screen\Screen;
-use Orchid\Screen\Actions\Button;
-use Orchid\Support\Facades\Layout;
+use App\Models\Department;
+
+use App\Models\StudentGroup;
+use Illuminate\Http\Request;
+use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Fields\Input;
+use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Fields\Relation;
+use Orchid\Support\Facades\Layout;
+use Illuminate\Support\Facades\Redirect;
+
+use App\Orchid\Layouts\StudentGroupStudentsListLayout;
 
 class StudentGroupEditScreen extends Screen
 {
@@ -20,7 +24,7 @@ class StudentGroupEditScreen extends Screen
      *
      * @var string
      */
-    public $name = 'Список студенческих групп';
+    public $name = 'Данные студенческой групп';
 
     /**
      * Display header description.
@@ -35,11 +39,19 @@ class StudentGroupEditScreen extends Screen
      *
      * @return array
      */
-    public function query(StudentGroup $sg): array
+    public function query(Request $req, $studentgroup): array
     {
-        $this->exist = $sg->exists;
+        // dd($req->studentgroup);
+        $sg = StudentGroup::where("id", $req->studentgroup)->first();
+        // $this->exist = $sg->exists;
+        if(!$sg)
+            return abort(404);//\Redirect::to('404');
+        $this->exist = true;
+        $students = $sg->students()->get();
+        // dd($students);
         return [
             "studentgroup" => $sg,
+            "students"     => $students,
         ];
     }
 
@@ -61,6 +73,9 @@ class StudentGroupEditScreen extends Screen
 
             Button::make("Удалить")
                 ->method("remove"),
+
+            Link::make("К списку групп")
+                ->route("platform.studentgroup.list"),
         ];
     }
 
@@ -81,12 +96,15 @@ class StudentGroupEditScreen extends Screen
                     ->fromModel(Department::class, "title")
                     ->title("Кафедра")
                     ->required(),
-                    
+
                 Relation::make("studentgroup.students")
-                    ->fromModel(User::class, "title")
+                    ->fromModel(User::class, "name")
+                    ->applyScope('isStudent')
                     ->title("Студенты")
+                    ->multiple()
                     ->required(),
-            ])
+            ]),
+            StudentGroupStudentsListLayout::class
         ];
     }
 
@@ -98,6 +116,9 @@ class StudentGroupEditScreen extends Screen
         ]);
 
         $sg->fill($request->get('studentgroup'))->save();
+        $sg->students()->detach();
+        $students = ($request->all())["studentgroup"]["students"];
+        $sg->students()->attach($students);
 
 
         return redirect()->route('platform.studentgroup.list');

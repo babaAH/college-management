@@ -2,12 +2,20 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Orchid\Screen\AsSource;
 use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    use HasFactory;
+    use AsSource;
+
+    protected $fillable = [
+        "active", 
+        "user_id",
+        "course_id",
+        "title",
+        "description",
+    ];
 
     protected $table = "projects";
 

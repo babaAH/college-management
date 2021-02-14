@@ -42,8 +42,16 @@ class PlatformProvider extends OrchidServiceProvider
 
             ItemMenu::label('Учебные курсы')
                 ->icon('monitor')
-                ->route('platform.course.list')
-                ->title('Университет'),
+                ->route('platform.course.list'),
+                // ->title('Университет'),
+            // ->badge(function () {
+            //     return 6;
+            // }),
+
+            ItemMenu::label('Проекты')
+                ->icon('monitor')
+                ->route('platform.course.list'),
+                // ->title('Университет'),
             // ->badge(function () {
             //     return 6;
             // }),

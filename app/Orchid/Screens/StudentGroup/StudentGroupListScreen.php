@@ -48,7 +48,7 @@ class StudentGroupListScreen extends Screen
     public function commandBar(): array
     {
         return [
-            Link::make('Create new')
+            Link::make('Создать учебну группу')
                 ->icon('pencil')
                 ->route('platform.studentgroup.edit')
                 ->canSee(!$this->exist),
